@@ -45,7 +45,7 @@ export function useSSE<TMap extends SSEEventMap>({
   const [reconnectAttempt, setReconnectAttempt] = useState(0);
 
   const esRef = useRef<EventSource | null>(null);
-  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const attemptsRef = useRef(0);
   const isMountedRef = useRef(true);
 
@@ -130,7 +130,7 @@ export function useSSE<TMap extends SSEEventMap>({
 
     return () => {
       isMountedRef.current = false;
-      clearTimeout(reconnectTimerRef.current);
+      if (reconnectTimerRef.current !== null) clearTimeout(reconnectTimerRef.current);
       esRef.current?.close();
       esRef.current = null;
     };

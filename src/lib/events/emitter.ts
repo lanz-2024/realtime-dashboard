@@ -42,7 +42,7 @@ export class TypedEventEmitter<TEvents extends Record<string, unknown>> {
 }
 
 // Global metric event emitter for SSE
-export interface MetricEvents {
+export interface MetricEvents extends Record<string, unknown> {
   metric: { name: string; value: number; timestamp: number; unit: string };
   alert: { severity: 'info' | 'warning' | 'critical'; message: string; timestamp: string };
 }

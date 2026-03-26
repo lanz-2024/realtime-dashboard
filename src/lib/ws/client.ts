@@ -33,8 +33,8 @@ export function useWebSocket({
 
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttemptsRef = useRef(0);
-  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout>>();
-  const pingTimerRef = useRef<ReturnType<typeof setInterval>>();
+  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const pingTimerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
   const pingStartRef = useRef<number | null>(null);
   const onMessageRef = useRef(onMessage);
   const isMountedRef = useRef(true);
