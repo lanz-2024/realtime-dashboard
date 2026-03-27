@@ -27,9 +27,9 @@ function ensureGenerationLoop(): void {
 
     // Random alerts (~2% chance each second)
     if (Math.random() < 0.02) {
-      const cpuValue = allMetrics['cpu']?.value ?? 0;
-      const errorValue = allMetrics['error_rate']?.value ?? 0;
-      const latencyValue = allMetrics['latency_p99']?.value ?? 0;
+      const cpuValue = allMetrics.cpu?.value ?? 0;
+      const errorValue = allMetrics.error_rate?.value ?? 0;
+      const latencyValue = allMetrics.latency_p99?.value ?? 0;
 
       let message = 'System health check: all metrics within normal range';
       if (cpuValue > 85) message = `High CPU usage detected: ${cpuValue.toFixed(1)}%`;
