@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest';
 import {
-  parseClientMessage,
-  parseServerMessage,
   ClientMessageSchema,
   ServerMessageSchema,
+  parseClientMessage,
+  parseServerMessage,
 } from '@/lib/ws/protocol';
+import { describe, expect, it } from 'vitest';
 
 // ─── parseClientMessage ───────────────────────────────────────────────────────
 
@@ -99,7 +99,11 @@ describe('parseServerMessage', () => {
   });
 
   it('parses error message', () => {
-    const msg = { type: 'error', code: 'NOT_FOUND', message: 'Channel not found' };
+    const msg = {
+      type: 'error',
+      code: 'NOT_FOUND',
+      message: 'Channel not found',
+    };
     const result = parseServerMessage(JSON.stringify(msg));
     expect(result?.type).toBe('error');
   });
@@ -121,7 +125,11 @@ describe('parseServerMessage', () => {
   });
 
   it('parses connected message', () => {
-    const msg = { type: 'connected', sessionId: 'abc-123', timestamp: Date.now() };
+    const msg = {
+      type: 'connected',
+      sessionId: 'abc-123',
+      timestamp: Date.now(),
+    };
     const result = parseServerMessage(JSON.stringify(msg));
     expect(result?.type).toBe('connected');
     if (result?.type === 'connected') {
@@ -181,8 +189,17 @@ describe('round-trip serialize/deserialize', () => {
   it('all server message type discriminators parse correctly', () => {
     const now = Date.now();
     const messages = [
-      { type: 'metric_update', channel: 'cpu', data: { timestamp: now, value: 10, unit: '%' } },
-      { type: 'alert', severity: 'info', message: 'ok', timestamp: new Date().toISOString() },
+      {
+        type: 'metric_update',
+        channel: 'cpu',
+        data: { timestamp: now, value: 10, unit: '%' },
+      },
+      {
+        type: 'alert',
+        severity: 'info',
+        message: 'ok',
+        timestamp: new Date().toISOString(),
+      },
       { type: 'pong', timestamp: now },
       { type: 'error', code: 'E1', message: 'err' },
       { type: 'snapshot', channel: 'cpu', data: [] },

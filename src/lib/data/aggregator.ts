@@ -22,10 +22,7 @@ const WINDOW_MS: Record<AggregationWindow, number> = {
  * Aggregates time-series data into fixed-size buckets.
  * Each bucket contains avg/min/max/count/sum for points within the window.
  */
-export function aggregate(
-  points: TimeSeriesPoint[],
-  window: AggregationWindow,
-): AggregatedPoint[] {
+export function aggregate(points: TimeSeriesPoint[], window: AggregationWindow): AggregatedPoint[] {
   if (points.length === 0) return [];
 
   const windowMs = WINDOW_MS[window];
@@ -86,9 +83,7 @@ export function trendPercent(points: TimeSeriesPoint[]): number | null {
 /**
  * Determine trend direction from a series of points.
  */
-export function trendDirection(
-  points: TimeSeriesPoint[],
-): 'up' | 'down' | 'stable' {
+export function trendDirection(points: TimeSeriesPoint[]): 'up' | 'down' | 'stable' {
   const pct = trendPercent(points);
   if (pct === null) return 'stable';
   if (pct > 2) return 'up';
@@ -102,7 +97,10 @@ export function trendDirection(
  */
 export function downsample(points: TimeSeriesPoint[], maxPoints: number): TimeSeriesPoint[] {
   if (points.length <= maxPoints) return points;
-  if (maxPoints < 3) return [points[0] ?? points[0], points[points.length - 1] ?? points[0]].filter(Boolean) as TimeSeriesPoint[];
+  if (maxPoints < 3)
+    return [points[0] ?? points[0], points[points.length - 1] ?? points[0]].filter(
+      Boolean,
+    ) as TimeSeriesPoint[];
 
   const sampled: TimeSeriesPoint[] = [points[0] as TimeSeriesPoint];
   const bucketSize = (points.length - 2) / (maxPoints - 2);
@@ -125,10 +123,11 @@ export function downsample(points: TimeSeriesPoint[], maxPoints: number): TimeSe
     for (let j = bucketStart; j < bucketEnd; j++) {
       const pt = points[j];
       if (!pt) continue;
-      const area = Math.abs(
-        (prev.timestamp - avgX) * (pt.value - prev.value) -
-        (prev.timestamp - pt.timestamp) * (avgY - prev.value),
-      ) * 0.5;
+      const area =
+        Math.abs(
+          (prev.timestamp - avgX) * (pt.value - prev.value) -
+            (prev.timestamp - pt.timestamp) * (avgY - prev.value),
+        ) * 0.5;
 
       if (area > maxArea) {
         maxArea = area;

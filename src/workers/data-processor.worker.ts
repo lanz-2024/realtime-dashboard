@@ -100,9 +100,7 @@ self.onmessage = (event: MessageEvent<WorkerInboundMessage>) => {
       }
 
       case 'compute_percentiles': {
-        const values = msg.points
-          .map((p) => p.value)
-          .sort((a, b) => a - b);
+        const values = msg.points.map((p) => p.value).sort((a, b) => a - b);
 
         const results: Record<number, number> = {};
         for (const p of msg.percentiles) {

@@ -1,11 +1,11 @@
 'use client';
 
-import { DashboardGrid } from '@/components/dashboard/DashboardGrid';
-import { TimeRange } from '@/components/controls/TimeRange';
 import { RefreshToggle } from '@/components/controls/RefreshToggle';
+import { TimeRange } from '@/components/controls/TimeRange';
+import { DashboardGrid } from '@/components/dashboard/DashboardGrid';
 import { useSSE } from '@/hooks/use-sse';
 import { useTimeSeries } from '@/hooks/use-time-series';
-import { useState, useRef, useCallback } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export interface MetricSnapshot {
   cpu: number;
@@ -82,10 +82,10 @@ export default function DashboardPage() {
 
       setLatest({ ...snap, alerts: alertsRef.current });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isLive],
+    [isLive, cpuSeries.append, memSeries.append, reqSeries.append],
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: alertCounter is a mutable ref value intentionally excluded to avoid stale-closure re-creation
   const handleAlert = useCallback(
     (data: AlertEvent) => {
       if (!isLive) return;
@@ -100,7 +100,6 @@ export default function DashboardPage() {
       alertsRef.current = [newAlert, ...alertsRef.current].slice(0, 50);
       setLatest((prev) => (prev ? { ...prev, alerts: alertsRef.current } : prev));
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isLive],
   );
 

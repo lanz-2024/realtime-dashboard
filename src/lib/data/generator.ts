@@ -107,9 +107,7 @@ export class MetricGenerator {
   }
 
   generateAll(): Record<string, { value: number; timestamp: number }> {
-    return Object.fromEntries(
-      Object.keys(METRICS).map((name) => [name, this.generate(name)]),
-    );
+    return Object.fromEntries(Object.keys(METRICS).map((name) => [name, this.generate(name)]));
   }
 
   static getMetricNames(): string[] {
@@ -130,8 +128,7 @@ export class MetricGenerator {
 
     // For cache_hit_rate, lower is worse
     if (name === 'cache_hit_rate') {
-      if (def.criticalThreshold !== undefined && value <= def.criticalThreshold)
-        return 'critical';
+      if (def.criticalThreshold !== undefined && value <= def.criticalThreshold) return 'critical';
       if (def.warnThreshold !== undefined && value <= def.warnThreshold) return 'warning';
       return 'normal';
     }

@@ -14,7 +14,9 @@ export const metrics = sqliteTable('metrics', {
 
 export const alerts = sqliteTable('alerts', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  severity: text('severity', { enum: ['info', 'warning', 'critical'] }).notNull(),
+  severity: text('severity', {
+    enum: ['info', 'warning', 'critical'],
+  }).notNull(),
   message: text('message').notNull(),
   metricName: text('metric_name'),
   metricValue: real('metric_value'),

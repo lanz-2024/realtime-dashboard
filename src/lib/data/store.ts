@@ -63,7 +63,7 @@ export class TimeSeriesStore {
       this.stores.set(metric, new RingBuffer<TimeSeriesPoint>(this.capacityPerMetric));
     }
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.stores.get(metric)!.push({ timestamp, value });
+    this.stores.get(metric)?.push({ timestamp, value });
   }
 
   getWindow(metric: string, windowMs: number): TimeSeriesPoint[] {

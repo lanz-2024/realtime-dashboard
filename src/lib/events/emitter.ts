@@ -17,7 +17,12 @@ export class TypedEventEmitter<TEvents extends Record<string, unknown>> {
   }
 
   emit<K extends keyof TEvents>(event: K, data: TEvents[K]): void {
-    this.listeners.get(event)?.forEach((listener) => listener(data));
+    const set = this.listeners.get(event);
+    if (set) {
+      for (const listener of set) {
+        listener(data);
+      }
+    }
   }
 
   once<K extends keyof TEvents>(event: K, listener: Listener<TEvents[K]>): void {
@@ -44,7 +49,11 @@ export class TypedEventEmitter<TEvents extends Record<string, unknown>> {
 // Global metric event emitter for SSE
 export interface MetricEvents extends Record<string, unknown> {
   metric: { name: string; value: number; timestamp: number; unit: string };
-  alert: { severity: 'info' | 'warning' | 'critical'; message: string; timestamp: string };
+  alert: {
+    severity: 'info' | 'warning' | 'critical';
+    message: string;
+    timestamp: string;
+  };
 }
 
 export const metricEmitter = new TypedEventEmitter<MetricEvents>();

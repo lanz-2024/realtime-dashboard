@@ -1,9 +1,9 @@
 'use client';
 
-import { MetricCard } from './MetricCard';
-import { AlertFeed } from './AlertFeed';
 import { TimeSeriesChart } from '@/components/charts/TimeSeriesChart';
 import type { TimeSeriesPoint } from '@/hooks/use-time-series';
+import { AlertFeed } from './AlertFeed';
+import { MetricCard } from './MetricCard';
 
 interface Alert {
   id: string;

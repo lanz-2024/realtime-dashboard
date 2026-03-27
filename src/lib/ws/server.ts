@@ -72,9 +72,9 @@ function startGenerationLoop(): void {
 function generateAlertMessage(
   metrics: Record<string, { value: number; timestamp: number }>,
 ): string {
-  const cpuValue = metrics['cpu']?.value ?? 0;
-  const errorValue = metrics['error_rate']?.value ?? 0;
-  const latencyValue = metrics['latency_p99']?.value ?? 0;
+  const cpuValue = metrics.cpu?.value ?? 0;
+  const errorValue = metrics.error_rate?.value ?? 0;
+  const latencyValue = metrics.latency_p99?.value ?? 0;
 
   if (cpuValue > 85) return `High CPU usage detected: ${cpuValue.toFixed(1)}%`;
   if (errorValue > 5) return `Elevated error rate: ${errorValue.toFixed(2)}%`;
