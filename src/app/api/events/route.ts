@@ -1,6 +1,6 @@
 import { MetricGenerator } from '@/lib/data/generator';
 import { metricEmitter } from '@/lib/events/emitter';
-import { SSE_HEADERS, createSSEStream, formatSSEEvent } from '@/lib/events/sse';
+import { SSE_HEADERS, createSSEStream } from '@/lib/events/sse';
 
 // Ensure the generator loop is running for SSE clients.
 // This module-level singleton starts once per process.

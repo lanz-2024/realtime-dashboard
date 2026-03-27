@@ -17,7 +17,9 @@ export class TypedEventEmitter<TEvents extends Record<string, unknown>> {
   }
 
   emit<K extends keyof TEvents>(event: K, data: TEvents[K]): void {
-    this.listeners.get(event)?.forEach((listener) => listener(data));
+    for (const listener of this.listeners.get(event) ?? []) {
+      listener(data);
+    }
   }
 
   once<K extends keyof TEvents>(event: K, listener: Listener<TEvents[K]>): void {

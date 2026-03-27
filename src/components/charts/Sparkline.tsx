@@ -24,8 +24,8 @@ export function Sparkline({ data, color = '#6366f1', width, height = 40 }: Spark
     <ResponsiveContainer width={width ?? '100%'} height={height}>
       <LineChart data={chartData} margin={{ top: 2, right: 2, bottom: 2, left: 2 }}>
         <Line
-          type='monotone'
-          dataKey='v'
+          type="monotone"
+          dataKey="v"
           stroke={color}
           strokeWidth={1.5}
           dot={false}

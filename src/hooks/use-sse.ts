@@ -93,7 +93,7 @@ export function useSSE<TMap extends SSEEventMap>({
         setState('closed');
         if (reconnect) {
           const attempts = attemptsRef.current;
-          const delay = Math.min(1_000 * Math.pow(2, attempts), maxReconnectDelayMs);
+          const delay = Math.min(1_000 * 2 ** attempts, maxReconnectDelayMs);
           attemptsRef.current = attempts + 1;
           setReconnectAttempt(attempts + 1);
           reconnectTimerRef.current = setTimeout(connect, delay);

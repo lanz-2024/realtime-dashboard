@@ -102,7 +102,7 @@ export function useWebSocket({
       if (reconnect && event.code !== 1000) {
         // Exponential backoff: 1s, 2s, 4s, 8s ... up to maxReconnectDelay
         const attempts = reconnectAttemptsRef.current;
-        const delay = Math.min(1_000 * Math.pow(2, attempts), maxReconnectDelay);
+        const delay = Math.min(1_000 * 2 ** attempts, maxReconnectDelay);
         reconnectAttemptsRef.current = attempts + 1;
         setReconnectAttempt(attempts + 1);
 
