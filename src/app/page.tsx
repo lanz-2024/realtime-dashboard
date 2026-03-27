@@ -1,11 +1,11 @@
 'use client';
 
-import { DashboardGrid } from '@/components/dashboard/DashboardGrid';
-import { TimeRange } from '@/components/controls/TimeRange';
 import { RefreshToggle } from '@/components/controls/RefreshToggle';
+import { TimeRange } from '@/components/controls/TimeRange';
+import { DashboardGrid } from '@/components/dashboard/DashboardGrid';
 import { useSSE } from '@/hooks/use-sse';
 import { useTimeSeries } from '@/hooks/use-time-series';
-import { useState, useRef, useCallback } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export interface MetricSnapshot {
   cpu: number;
@@ -52,7 +52,7 @@ export default function DashboardPage() {
     latency: 0,
   });
   const alertsRef = useRef<MetricSnapshot['alerts']>([]);
-  let alertCounter = useRef(0).current;
+  const alertCounterRef = useRef(0);
 
   const handleMetric = useCallback(
     (data: MetricEvent) => {
@@ -82,16 +82,15 @@ export default function DashboardPage() {
 
       setLatest({ ...snap, alerts: alertsRef.current });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isLive],
+    [isLive, cpuSeries.append, memSeries.append, reqSeries.append],
   );
 
   const handleAlert = useCallback(
     (data: AlertEvent) => {
       if (!isLive) return;
-      alertCounter += 1;
+      alertCounterRef.current += 1;
       const newAlert = {
-        id: String(alertCounter),
+        id: String(alertCounterRef.current),
         severity: data.severity,
         message: data.message,
         time: new Date(data.timestamp).toLocaleTimeString(),
@@ -100,7 +99,6 @@ export default function DashboardPage() {
       alertsRef.current = [newAlert, ...alertsRef.current].slice(0, 50);
       setLatest((prev) => (prev ? { ...prev, alerts: alertsRef.current } : prev));
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isLive],
   );
 

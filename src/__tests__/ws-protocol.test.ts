@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest';
 import {
-  parseClientMessage,
-  parseServerMessage,
   ClientMessageSchema,
   ServerMessageSchema,
+  parseClientMessage,
+  parseServerMessage,
 } from '@/lib/ws/protocol';
+import { describe, expect, it } from 'vitest';
 
 // ─── parseClientMessage ───────────────────────────────────────────────────────
 

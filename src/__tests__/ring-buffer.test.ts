@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { RingBuffer } from '@/lib/data/store';
+import { describe, expect, it } from 'vitest';
 
 describe('RingBuffer', () => {
   it('starts empty', () => {

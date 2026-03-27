@@ -49,11 +49,11 @@ function CustomTooltip({ active, payload, label, unit, metricLabel }: CustomTool
   if (!entry) return null;
 
   return (
-    <div className='rounded border border-gray-700 bg-gray-900 px-3 py-2 text-xs shadow-lg'>
-      <p className='text-gray-400'>{label !== undefined ? formatTime(label) : ''}</p>
-      <p className='font-semibold text-gray-100'>
+    <div className="rounded border border-gray-700 bg-gray-900 px-3 py-2 text-xs shadow-lg">
+      <p className="text-gray-400">{label !== undefined ? formatTime(label) : ''}</p>
+      <p className="font-semibold text-gray-100">
         {metricLabel}:{' '}
-        <span className='text-indigo-400'>
+        <span className="text-indigo-400">
           {typeof entry.value === 'number' ? entry.value.toFixed(2) : String(entry.value)}
           {unit ? ` ${unit}` : ''}
         </span>
@@ -75,11 +75,11 @@ export function TimeSeriesChart({
   const chartData = data.map((d) => ({ time: d.time, value: d.value }));
 
   return (
-    <ResponsiveContainer width='100%' height={200}>
+    <ResponsiveContainer width="100%" height={200}>
       <LineChart data={chartData} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
-        <CartesianGrid strokeDasharray='3 3' stroke='#1f2937' vertical={false} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" vertical={false} />
         <XAxis
-          dataKey='time'
+          dataKey="time"
           tickFormatter={formatTime}
           tick={{ fontSize: 10, fill: '#6b7280' }}
           tickLine={false}
@@ -98,8 +98,8 @@ export function TimeSeriesChart({
           cursor={{ stroke: '#374151', strokeDasharray: '4 2' }}
         />
         <Line
-          type='monotone'
-          dataKey='value'
+          type="monotone"
+          dataKey="value"
           stroke={color}
           strokeWidth={2}
           dot={false}

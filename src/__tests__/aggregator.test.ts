@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
 import { aggregate, rollingAverage } from '@/lib/data/aggregator';
 import type { TimeSeriesPoint } from '@/lib/data/store';
+import { describe, expect, it } from 'vitest';
 
 // ─── rollingAverage ───────────────────────────────────────────────────────────
 

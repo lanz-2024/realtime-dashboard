@@ -18,12 +18,11 @@ export function TimeRange({
     <div className="flex items-center gap-1 bg-gray-800 rounded-lg p-1">
       {RANGES.map((r) => (
         <button
+          type="button"
           key={r.value}
           onClick={() => onChange(r.value)}
           className={`px-3 py-1 rounded-md text-sm transition-colors ${
-            value === r.value
-              ? 'bg-gray-700 text-white'
-              : 'text-gray-400 hover:text-white'
+            value === r.value ? 'bg-gray-700 text-white' : 'text-gray-400 hover:text-white'
           }`}
         >
           {r.label}

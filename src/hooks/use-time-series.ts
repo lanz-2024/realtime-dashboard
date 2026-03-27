@@ -25,9 +25,7 @@ export interface UseTimeSeriesReturn {
  * Retains at most `capacity` data points — oldest are evicted automatically.
  * Designed for high-frequency chart data without memory growth.
  */
-export function useTimeSeries({
-  capacity = 300,
-}: UseTimeSeriesOptions = {}): UseTimeSeriesReturn {
+export function useTimeSeries({ capacity = 300 }: UseTimeSeriesOptions = {}): UseTimeSeriesReturn {
   // Use a ref for the underlying ring buffer to avoid re-creating it on render.
   // State is a snapshot array used to trigger re-renders.
   const bufferRef = useRef<TimeSeriesPoint[]>([]);
